@@ -164,16 +164,16 @@ export default function Home() {
   }, []);
 
   const popularProducts = products.filter((item) => {
-  const name = item.name?.toLowerCase() || "";
-  const category = item.category?.toLowerCase() || "";
+    const name = item.name?.toLowerCase() || "";
+    const category = item.category?.toLowerCase() || "";
 
-  return (
-    name.includes("lotus") ||
-    name.includes("rath") ||
-    name.includes("book") ||
-    category.includes("kamal kalp yantra")
-  );
-}).slice(0, 4);
+    return (
+      name.includes("lotus") ||
+      name.includes("rath") ||
+      name.includes("book") ||
+      category.includes("kamal kalp yantra")
+    );
+  }).slice(0, 4);
 
   return (
     <div className="bg-white">
@@ -183,7 +183,7 @@ export default function Home() {
       {/* FEATURED CATEGORIES */}
       <FeaturedCategories />
 
-      {/* POPULAR COLLECTION */} 
+      {/* POPULAR COLLECTION */}
       <section className="py-24 bg-[#fcfaf8] relative overflow-hidden">
         <div className="absolute top-0 right-0 -translate-y-1/2 translate-x-1/2 w-96 h-96 bg-orange-100/50 rounded-full blur-3xl"></div>
 
@@ -214,12 +214,12 @@ export default function Home() {
               >
                 <div className="relative overflow-hidden rounded-[2rem] bg-white p-3 shadow-lg transition-all duration-500 group-hover:shadow-2xl group-hover:-translate-y-2">
                   <div className="overflow-hidden rounded-[1.5rem] h-80">
-  <img
-    src={item.image || item.images?.[0] || "/placeholder.png"}
-    alt={item.name}
-    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
-  />
-</div>
+                    <img
+                      src={item.images?.[0] || item.image || "/placeholder.png"}
+                      alt={item.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                    />
+                  </div>
 
                   {/* Hover Overlay */}
                   <div className="absolute inset-0 bg-gradient-to-t from-orange-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition duration-500 flex flex-col justify-end p-8">

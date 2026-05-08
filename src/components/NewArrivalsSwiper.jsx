@@ -153,7 +153,7 @@ export default function NewArrivalsSwiper() {
   return (
     <section className="py-16 md:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        
+
         {/* HEADER */}
         <div className="flex flex-col md:flex-row justify-between items-center mb-8 md:mb-10 gap-4">
           <h2 className="text-xl sm:text-2xl md:text-3xl font-bold text-gray-600 text-center md:text-left">
@@ -189,23 +189,23 @@ export default function NewArrivalsSwiper() {
             {newArrivals.map((item) => (
               <SwiperSlide key={item._id}>
                 <div className="group bg-white rounded-2xl p-3 shadow-md border border-gray-100 h-full transition-all duration-300 hover:shadow-xl">
-                  
+
                   <Link to={`/product/${item._id}`}>
                     <div className="h-52 sm:h-60 md:h-64 overflow-hidden rounded-xl">
                       <img
-                        src={item.image}
-                        alt={item.productName}
+                        src={item.images?.[0] || item.image || "/placeholder.png"}
+                        alt={item.productName || item.name}
                         className="h-full w-full object-contain group-hover:scale-110 transition duration-500"
                       />
                     </div>
                   </Link>
 
-                <div className="mt-3 text-center">
-  <h3 className="text-sm sm:text-base font-semibold text-gray-800 line-clamp-1">
-    {item.name}
-  </h3>
+                  <div className="mt-3 text-center">
+                    <h3 className="text-sm sm:text-base font-semibold text-gray-800 line-clamp-1">
+                      {item.name}
+                    </h3>
 
-</div>
+                  </div>
                 </div>
               </SwiperSlide>
             ))}

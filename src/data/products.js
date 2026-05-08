@@ -50,31 +50,40 @@ export async function getProducts() {
 
     const data = response.data?.data || response.data || [];
 
-    return data.map((item, index) => ({
-      _id: item._id,
-      id: item._id,
-      name: item.name || item.productName, // backend મુજબ adjust
-      price: item.price,
-      originalPrice: item.price + 200,
-      stockQty: item.stockQty || 5,
-      rating: item.rating || 0,
-      isBestSeller: item.isBestSeller || false,
-      isSale: item.isSale || false,
-
-      // ✅ Category (important for filter)
-      category: item.categoryId?.name || item.category || "general",
-
-      createdAt: item.createdAt,
-      stock: item.isActive !== false,
-      sku: item.sku || `SKU-${index + 1}`,
-      description: item.description,
-
-      image: item.image?.startsWith("http")
-        ? item.image
+    return data.map((item, index) => {
+      const imageUrls = item.images?.length
+        ? item.images.map((img) =>
+            img?.startsWith("http")
+              ? img
+              : `${backendUrl}/uploads/${img.replace(/^uploads\//, "")}`
+          )
         : item.image
-          ? `${backendUrl}/uploads/${item.image.replace(/^uploads\//, "")}`
-          : "https://placehold.co/300x300?text=No+Image",
-    }));
+        ? [`${item.image.startsWith("http") ? item.image : `${backendUrl}/uploads/${item.image.replace(/^uploads\//, "")}`}`]
+        : [];
+
+      return {
+        _id: item._id,
+        id: item._id,
+        name: item.name || item.productName, // backend મુજબ adjust
+        price: item.price,
+        originalPrice: item.price + 200,
+        stockQty: item.stockQty || 5,
+        rating: item.rating || 0,
+        isBestSeller: item.isBestSeller || false,
+        isSale: item.isSale || false,
+
+        // ✅ Category (important for filter)
+        category: item.categoryId?.name || item.category || "general",
+
+        createdAt: item.createdAt,
+        stock: item.isActive !== false,
+        sku: item.sku || `SKU-${index + 1}`,
+        description: item.description,
+
+        images: imageUrls,
+        image: imageUrls[0] || "https://placehold.co/300x300?text=No+Image",
+      };
+    });
   } catch (error) {
     console.error("Error fetching products:", error);
     return [];
